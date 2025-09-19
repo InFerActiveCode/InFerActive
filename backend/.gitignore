@@ -1,0 +1,8 @@
+
+/models
+/generated_trees
+/inferactive.egg-info
+
+__pycache__/
+*.pyc
+*.egg-info
