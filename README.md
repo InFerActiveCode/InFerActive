@@ -17,6 +17,9 @@ InferActive enables real-time, token-by-token generation with full probability t
 
 ## Quick Start
 
+### Try Demo
+https://inferactivedemo.netlify.app
+
 ### Installation
 
 ```bash
