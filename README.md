@@ -1,6 +1,5 @@
 # InferActive
 
-**Interactive token-level inference server for language models with real-time tree exploration and advanced sampling methods.**
 <img width="4480" height="2056" alt="Image" src="https://github.com/user-attachments/assets/a020068e-e403-43f4-a137-6b8c737c85b9" />
 
 InferActive enables real-time, token-by-token generation with full probability tracking, interactive tree exploration, and sophisticated sampling techniques like Sequential Monte Carlo (SMC). Perfect for research, interactive applications, and understanding model behavior at the token level.
