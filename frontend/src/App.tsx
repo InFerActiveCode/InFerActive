@@ -1,7 +1,6 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ParameterPanel } from './components/parameterPanel';
 import { TokenTreeVisualizer } from './components/tokenTreePanel';
-import { TokenStreamPanel } from './components/tokenStreamPanel';
 import { EvaluatedPathsPanel } from './components/evaluatedPathsPanel';
 import { useWebSocket } from './hooks/useWebSocket';
 import { useTreeManager } from './hooks/useTreeManager';

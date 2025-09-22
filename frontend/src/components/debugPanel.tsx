@@ -1,10 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { VisualNode } from '../types/types';
-import { 
-  calculateProbabilityCoverage, 
-  calculateDepthWiseCoverage 
-} from '../utils/treeTransform';
 
 const DebugContainer = styled.div`
   position: fixed;
@@ -255,17 +251,6 @@ const AnalyticsTab = styled.div<{ isActive: boolean }>`
     color: ${props => props.isActive ? '#007bff' : '#495057'};
   }
 `;
-
-// Get maximum tree depth
-function getTreeMaxDepth(node: VisualNode, currentDepth: number = 0): number {
-  if (!node || !node.children || node.children.length === 0) {
-    return currentDepth;
-  }
-  
-  return Math.max(...node.children.map(child => 
-    getTreeMaxDepth(child, currentDepth + 1)
-  ));
-}
 
 // Count total nodes in tree
 function countNodes(node: VisualNode): number {

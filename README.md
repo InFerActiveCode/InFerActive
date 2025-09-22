@@ -53,6 +53,8 @@ inferactive-server \
   --log-level debug
 ```
 
+**Tree Generation Script**: Use `backend/app/example_tree_generator.py` to generate complete token trees offline for analysis. Configure model path and prompt in the script, then run to export trees as JSON files.
+
 
 
 ## Backend (server) Configuration
@@ -100,7 +102,8 @@ Then simply run: `inferactive-server`
 backend/
 ├── app/
 │   ├── main.py              # FastAPI application
-│   └── cli.py               # Command line interface
+│   ├── cli.py               # Command line interface
+│   └── example_tree_generator.py # Offline token tree generation
 ├── config/
 │   └── settings.py          # Configuration management
 ├── model/

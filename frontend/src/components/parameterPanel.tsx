@@ -154,57 +154,6 @@ const CoverageButton = styled.button`
   }
 `;
 
-const SubHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-`;
-
-const SectionTitle = styled.h2`
-  margin: 0;
-  color: #343a40;
-  font-size: 18px;
-  font-weight: 600;
-`;
-
-const CollapseButton = styled.button`
-  background: none;
-  border: none;
-  color: #6c757d;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 4px;
-  font-size: 12px;
-  transition: color 0.2s;
-  
-  &:hover {
-    color: #343a40;
-  }
-  
-  svg {
-    margin-left: 4px;
-  }
-`;
-
-const TitleBadge = styled.span`
-  background: #007bff;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: normal;
-`;
-
-const CollapsibleSection = styled.div<{ isOpen: boolean }>`
-  max-height: ${props => props.isOpen ? '1000px' : '0'};
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  opacity: ${props => props.isOpen ? '1' : '0'};
-  margin-bottom: ${props => props.isOpen ? '16px' : '0'};
-`;
-
 const ParameterGroup = styled.div`
   margin-bottom: 8px;
   background: #f8f9fa;
@@ -669,6 +618,7 @@ export const ParameterPanel: React.FC<ParameterPanelProps> = ({
   
   const [isFileSelectOpen, setIsFileSelectOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<string>('');
+  const [localFile, setLocalFile] = useState<File | null>(null);
   
   
   useEffect(() => {
@@ -790,44 +740,47 @@ export const ParameterPanel: React.FC<ParameterPanelProps> = ({
   ];
 
   
+  const processFileData = (data: any) => {
+    const treeData = data.tree || data;
+
+    if (data.metadata?.prompt) {
+      setInputText(data.metadata.prompt);
+      setInitialPrompt(data.metadata.prompt);
+    }
+
+    const fakeWebSocketMessage = {
+      type: 'tree_result',
+      request_id: 'file_load_' + Date.now(),
+      tree: treeData
+    };
+
+    onClearMessages();
+    (window as any).__loadedTreeData = fakeWebSocketMessage;
+    window.dispatchEvent(new CustomEvent('treeFileLoaded'));
+    setIsFileSelectOpen(false);
+  };
+
   const handleFileLoad = async (filename: string) => {
     try {
       const response = await fetch(`/${filename}`);
       if (!response.ok) throw new Error(`Failed to load ${filename}`);
-      
+
       const data = await response.json();
-      
-      
-      const treeData = data.tree || data;
-      
-      
-      if (data.metadata?.prompt) {
-        setInputText(data.metadata.prompt);
-        setInitialPrompt(data.metadata.prompt);
-      }
-      
-      
-      const fakeWebSocketMessage = {
-        type: 'tree_result',
-        request_id: 'file_load_' + Date.now(),
-        tree: treeData
-      };
-      
-      
-      onClearMessages();
-      
-      
-      (window as any).__loadedTreeData = fakeWebSocketMessage;
-      
-      
-      window.dispatchEvent(new CustomEvent('treeFileLoaded'));
-      
-      
-      setIsFileSelectOpen(false);
-      
+      processFileData(data);
     } catch (error) {
       console.error('Failed to load JSON file:', error);
       alert('Failed to load JSON file');
+    }
+  };
+
+  const handleLocalFileLoad = async (file: File) => {
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      processFileData(data);
+    } catch (error) {
+      console.error('Failed to load local JSON file:', error);
+      alert('Failed to load local JSON file');
     }
   };
 
@@ -1076,26 +1029,42 @@ export const ParameterPanel: React.FC<ParameterPanelProps> = ({
           <PopupContent onClick={(e) => e.stopPropagation()}>
             <PopupTitle>Load JSON File</PopupTitle>
             <PopupMessage>
-              Select a JSON file to load from the public directory:
+              Select from public directory or upload local file:
             </PopupMessage>
             <Select
               value={selectedFile}
               onChange={(e) => setSelectedFile(e.target.value)}
-              style={{ marginBottom: '16px' }}
+              style={{ marginBottom: '8px' }}
             >
-              <option value="">Select JSON file...</option>
+              <option value="">Select public JSON file...</option>
               {publicJsonFiles.map(file => (
                 <option key={file} value={file}>{file}</option>
               ))}
             </Select>
+            <div style={{ textAlign: 'center', margin: '8px 0', color: '#6c757d', fontSize: '12px' }}>OR</div>
+            <input
+              type="file"
+              accept=".json"
+              onChange={(e) => {
+                setLocalFile(e.target.files?.[0] || null);
+                setSelectedFile('');
+              }}
+              style={{ marginBottom: '16px', width: '100%' }}
+            />
             <PopupButtons>
               <PopupButton variant="secondary" onClick={() => setIsFileSelectOpen(false)}>
                 Cancel
               </PopupButton>
-              <PopupButton 
-                variant="primary" 
-                onClick={() => selectedFile && handleFileLoad(selectedFile)}
-                disabled={!selectedFile}
+              <PopupButton
+                variant="primary"
+                onClick={() => {
+                  if (selectedFile) {
+                    handleFileLoad(selectedFile);
+                  } else if (localFile) {
+                    handleLocalFileLoad(localFile);
+                  }
+                }}
+                disabled={!selectedFile && !localFile}
               >
                 Load
               </PopupButton>
