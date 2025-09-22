@@ -47,11 +47,20 @@ inferactive-server \
   --log-level debug
 ```
 
-### Frontend
-```bash 
+### Frontend Setup
+
+```bash
+# Navigate to frontend directory
 cd frontend
+
+# Install dependencies
+npm install
+
+# Start development server
 npm start
 ```
+
+The frontend will be available at `http://localhost:3000` and automatically connects to the backend server at `http://localhost:8008`.
 
 ## Advanced Features
 
@@ -108,9 +117,6 @@ inferactive-server --help
 - `--batch-timeout` - Batch collection timeout in seconds (default: `0.1`)
 - `--model-unload-timeout` - Auto-unload after inactivity (default: `600`)
 
-**Debugging:**
-- `--log-level` - Logging verbosity: `debug`, `info`, `warning`, `error`
-
 ### Environment Configuration
 
 Create a `.env` file for persistent configuration:
@@ -133,84 +139,6 @@ Then simply run: `inferactive-server`
 - **Qwen**: Qwen family models with thinking capabilities
 - **EXAONE**: EXAONE 3.5 series models
 
-**Model Requirements:**
-- HuggingFace format with `config.json`
-- Compatible tokenizer files
-- Model weights in `.safetensors` or `.bin` format
-
-#### Generate with SMC
-```json
-{
-    "type": "generate_with_smc",
-    "request_id": "gen-001",
-    "input_text": "Your prompt here",
-    "k": 5,
-    "particlenum": 20,
-    "max_tokens": 50,
-    "temperature": 0.7,
-    "top_p": 0.9,
-    "min_p": 0.05
-}
-```
-
-#### Explore Tree Node
-```json
-{
-    "type": "explore_node", 
-    "request_id": "gen-001",
-    "node_id": "node-to-explore",
-    "k": 5,
-    "temperature": 0.7
-}
-```
-
-### Response Types
-
-#### Model Status
-```json
-{
-    "type": "model_status",
-    "request_id": "load-001",
-    "status": "loaded",
-    "message": "Model loaded successfully"
-}
-```
-
-#### Generation Result
-```json
-{
-    "type": "tree_result",
-    "request_id": "gen-001", 
-    "tree": {
-        "id": "root",
-        "text": "Your prompt",
-        "children": [
-            {
-                "id": "child-1",
-                "token_id": 123,
-                "text": "token",
-                "prob": 0.85,
-                "score": 0.85,
-                "children": [...]
-            }
-        ]
-    }
-}
-```
-
-#### Real-Time Updates
-```json
-{
-    "type": "update",
-    "tree": { ... }
-}
-```
-
-### HTTP Endpoints
-
-- **GET /** - Server information and status
-- **GET /health** - Health check for monitoring
-- **GET /stats** - Detailed server statistics
 
 ## Architecture
 
@@ -223,7 +151,7 @@ backend/
 │   └── settings.py          # Configuration management
 ├── model/
 │   ├── token_node.py        # Tree node data structure
-│   └── manager.py           # Model lifecycle management  
+│   └── manager.py           # Model lifecycle management
 ├── inference/
 │   └── engine.py            # Batched inference engine
 ├── api/
@@ -231,8 +159,7 @@ backend/
 │   └── handlers.py          # Message routing & handling
 └── utils/
     └── logging.py           # Logging configuration
-```
-
+    
 ## Performance Optimization
 
 ### GPU Memory Management

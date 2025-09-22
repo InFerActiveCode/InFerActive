@@ -9,12 +9,12 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 setup(
     name="inferactive",
     version="0.1.0",
-    author="Your Name",
-    author_email="your.email@example.com",
-    description="Interactive token-level inference server for language models",
+    author="InFerActive",
+    author_email="no-reply@example.com",
+    description="Interactive inference server for language models",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/inferactive",
+    url="https://github.com/inferactivecode/inferactive",
     packages=find_packages(where="backend"),
     package_dir={"": "backend"},
     classifiers=[
