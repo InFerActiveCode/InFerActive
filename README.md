@@ -106,9 +106,6 @@ backend/
 │   └── example_tree_generator.py # Offline token tree generation
 ├── config/
 │   └── settings.py          # Configuration management
-├── model/
-│   ├── token_node.py        # Tree node data structure
-│   └── manager.py           # Model lifecycle management
 ├── inference/
 │   └── engine.py            # Batched inference engine
 ├── api/
@@ -116,6 +113,8 @@ backend/
 │   └── handlers.py          # Message routing & handling
 └── utils/
     └── logging.py           # Logging configuration
+│   ├── token_node.py        # Tree node data structure
+│   └── manager.py           # Model lifecycle management
 
 ```
 
