@@ -62,48 +62,10 @@ npm start
 
 The frontend will be available at `http://localhost:3000` and automatically connects to the backend server at `http://localhost:8008`.
 
-## Advanced Features
 
-### Sequential Monte Carlo (SMC) Generation
-
-SMC maintains multiple generation candidates (particles) and uses intelligent resampling to focus computational resources on the most promising paths:
-
-```python
-{
-    "type": "generate_with_smc",
-    "input_text": "Explain quantum computing",
-    "k": 8,                    # Top-k candidates per step
-    "particlenum": 25,         # Number of particles
-    "max_tokens": 100,         # Maximum generation length
-    "temperature": 0.8,        # Sampling temperature
-    "top_p": 0.9,             # Nucleus sampling
-    "min_p": 0.02             # Minimum probability threshold
-}
-```
-
-### Interactive Tree Exploration
-
-Explore specific nodes in the generation tree to understand model behavior:
-
-```python
-# First generate initial tree, then explore specific branches
-{
-    "type": "explore_node",
-    "request_id": "gen-001",      # Reference to existing tree
-    "node_id": "target-node-id",  # Specific node to expand
-    "k": 5,                       # Alternatives per expansion
-    "temperature": 0.7
-}
-```
-
-
-## Configuration
+## Backend (server) Configuration
 
 ### Command Line Options
-
-```bash
-inferactive-server --help
-```
 
 **Essential Options:**
 - `--model-path` - Path to model directory (required)
@@ -140,7 +102,7 @@ Then simply run: `inferactive-server`
 - **EXAONE**: EXAONE 3.5 series models
 
 
-## Architecture
+## Backend Architecture
 
 ```
 backend/
@@ -159,29 +121,9 @@ backend/
 │   └── handlers.py          # Message routing & handling
 └── utils/
     └── logging.py           # Logging configuration
-    
-## Performance Optimization
-
-### GPU Memory Management
-- Models automatically unload after configurable inactivity period
-- Intelligent batch processing reduces GPU memory fragmentation
-- Automatic cleanup and restart on critical GPU errors
-
-### Batch Processing Optimization
-- **Higher Throughput**: Increase `--batch-size` for more parallel requests
-- **Lower Latency**: Decrease `--batch-timeout` for faster response times
-- **Memory vs Speed**: Balance based on your GPU capacity
-
-## Development
-
-### Setup Development Environment
-```bash
-# Install in development mode
-pip install -e ".[dev]"
 
 ```
 
+## Contact
 
-## License
-
-MIT License
+For questions or support, please contact: inferactive@proton.me
