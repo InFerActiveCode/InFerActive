@@ -20,7 +20,7 @@ InFerActive, a novel interactive system that supports optimized visualization an
 ### Try Demo
 https://inferactivedemo.netlify.app
 
-### Installation
+### Server Installation
 
 ```bash
 # Clone the repository
@@ -31,7 +31,18 @@ cd inferactive
 pip install -e .
 ```
 
-### Basic Usage
+### Frontend Setup
+
+```bash
+cd frontend
+
+npm install
+
+npm start
+```
+The frontend will be available at `http://localhost:3000` and automatically connects to the backend server at `http://localhost:8008`.
+
+### Basic Usage (server)
 
 ```bash
 # Start server with your model
@@ -47,20 +58,6 @@ inferactive-server \
   --log-level debug
 ```
 
-### Frontend Setup
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start development server
-npm start
-```
-
-The frontend will be available at `http://localhost:3000` and automatically connects to the backend server at `http://localhost:8008`.
 
 
 ## Backend (server) Configuration
