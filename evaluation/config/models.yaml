@@ -1,0 +1,186 @@
+# Model configurations for experiments
+# 모델 다운로드: python models/download_model.py --model llama2-7b-chat --fp16
+
+# ===================== Target Models ===================== #
+
+llama2_7b:
+  model_path: "./models/llama_2_7b_chat_hf_fp16"
+  model_type: "llama2"
+  chat_template: "llama-2"
+  dtype: "float16"
+  num_gpus: 2
+  max_model_len: 2048
+  gpu_memory_utilization: 0.7
+
+llama2_13b:
+  model_path: "./models/llama_2_13b_chat_hf_fp16"
+  model_type: "llama2"
+  chat_template: "llama-2"
+  dtype: "float16"
+  num_gpus: 2
+  max_model_len: 2048
+  gpu_memory_utilization: 0.7
+
+llama2_70b:
+  model_path: "./models/llama_2_70b_chat_hf_fp16"
+  model_type: "llama2"
+  chat_template: "llama-2"
+  dtype: "float16"
+  num_gpus: 2
+  max_model_len: 2048
+  gpu_memory_utilization: 0.8
+
+llama3_8b:
+  model_path: "./models/llama-3.1-8b-instruct_fp16"
+  model_type: "llama3"
+  chat_template: null
+  dtype: "float16"
+  num_gpus: 4
+  max_model_len: 1024
+  gpu_memory_utilization: 0.4
+
+llama3_70b:
+  model_path: "./models/llama-3.1-70b-instruct_fp16"
+  model_type: "llama3"
+  chat_template: null
+  dtype: "float16"
+  num_gpus: 4
+  max_model_len: 4096
+  gpu_memory_utilization: 0.8
+
+llama3_3b:
+  model_path: "./models/llama-3.2-3b-instruct_fp16"
+  model_type: "llama3"
+  chat_template: null
+  dtype: "float16"
+  num_gpus: 2
+  max_model_len: 1024
+  gpu_memory_utilization: 0.8
+
+llama3_1b:
+  model_path: "../llama-3.2-1b"
+  model_type: "llama3"
+  chat_template: null
+  dtype: "float16"
+  num_gpus: 1
+  max_model_len: 1024
+  gpu_memory_utilization: 0.7
+
+# ===================== Gemma Models ===================== #
+
+gemma2_9b:
+  model_path: "./models/gemma-2-9b-it"
+  model_type: "gemma"
+  chat_template: null  # Use tokenizer.apply_chat_template
+  dtype: "bfloat16"
+  num_gpus: 4
+  max_model_len: 2048
+  gpu_memory_utilization: 0.8
+
+# ===================== Vicuna Models ===================== #
+
+vicuna_7b:
+  model_path: "./models/vicuna-7b-v1.5_fp16"
+  model_type: "vicuna"
+  chat_template: "vicuna"
+  dtype: "float16"
+  num_gpus: 1
+  max_model_len: 2048
+  gpu_memory_utilization: 0.7
+
+vicuna_13b:
+  model_path: "./models/vicuna-13b-v1.5_fp16"
+  model_type: "vicuna"
+  chat_template: "vicuna"
+  dtype: "float16"
+  num_gpus: 1
+  max_model_len: 2048
+  gpu_memory_utilization: 0.7
+
+# ===================== Qwen Models ===================== #
+
+qwen_7b:
+  model_path: "./models/qwen-7b-chat"
+  model_type: "qwen"
+  chat_template: "qwen"
+  dtype: "float16"
+  num_gpus: 1
+  max_model_len: 2048
+  gpu_memory_utilization: 0.7
+  trust_remote_code: true
+  pad_token: "<|extra_0|>"
+  eos_token: "<|im_end|>"
+
+qwen_14b:
+  model_path: "./models/qwen-14b-chat"
+  model_type: "qwen"
+  chat_template: "qwen"
+  dtype: "float16"
+  num_gpus: 1
+  max_model_len: 2048
+  gpu_memory_utilization: 0.7
+  trust_remote_code: true
+  pad_token: "<|extra_0|>"
+  eos_token: "<|im_end|>"
+
+qwen2_7b:
+  model_path: "./models/qwen2-7b-instruct"
+  model_type: "qwen"
+  chat_template: null  # Use tokenizer.apply_chat_template
+  dtype: "bfloat16"
+  num_gpus: 1
+  max_model_len: 4096
+  gpu_memory_utilization: 0.7
+  trust_remote_code: true
+
+qwen2_5_7b:
+  model_path: "./models/qwen2.5-7b-instruct_fp16"
+  model_type: "qwen"
+  chat_template: null  # Use tokenizer.apply_chat_template
+  dtype: "bfloat16"
+  num_gpus: 4
+  max_model_len: 2048
+  gpu_memory_utilization: 0.8
+  trust_remote_code: true
+
+qwen2_5_14b:
+  model_path: "./models/qwen2.5-14b-instruct"
+  model_type: "qwen"
+  chat_template: null  # Use tokenizer.apply_chat_template
+  dtype: "bfloat16"
+  num_gpus: 2
+  max_model_len: 4096
+  gpu_memory_utilization: 0.7
+  trust_remote_code: true
+
+# ===================== Classifier ===================== #
+
+classifier:
+  model_path: "./models/harmbench_llama_2_13b_cls_fp16"
+  dtype: "float16"
+  num_gpus: 4
+  max_model_len: 1024
+  gpu_memory_utilization: 0.4
+
+# ===================== Generation Settings ===================== #
+# 여기서 모든 생성 파라미터를 설정
+
+generation:
+  # ----- Tree Exploration -----
+  exploration_depths: [4, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]    # 각 phase별 탐색 depth (총 depth = sum)
+  k: 20                        # top-k 토큰 수
+  temperature: 0.6              # 샘플링 온도
+  top_p: 0.9                   # nucleus sampling
+  min_p: 0.                    # minimum probability threshold
+  tree_batch_size: 128     # tree exploration inference 배치 크기
+
+  # ----- Continuation -----
+  max_tokens: 120           # continuation 최대 토큰
+  batch_size: 2000               # 배치 크기
+  checkpoint_every: 10000         # 체크포인트 저장 주기
+
+# ===================== Behavior Categories ===================== #
+
+categories:
+  - contextual
+  - standard

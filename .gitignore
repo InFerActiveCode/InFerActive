@@ -1,0 +1,35 @@
+.DS_Store
+**/.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.playwright-mcp/
+.venv/
+venv/
+
+# Node / frontend
+node_modules/
+frontend/node_modules/
+frontend/build/
+frontend/.env*
+
+# Local models and generated artifacts
+/llama-3.2-1b/
+/models/
+*.pdf
+*.safetensors
+/outputs/
+/results/
+/evaluation/outputs/
+/evaluation/results/
+/evaluation/generated_trees/
+/evaluation/models/*/
+!/evaluation/models/*.py
+
+# Local environment
+.env
+.env.*

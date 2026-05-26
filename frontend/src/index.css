@@ -1,0 +1,50 @@
+:root {
+  --genesis-primary: #6366f1;
+  --genesis-primary-hover: #4f46e5;
+  --genesis-neutral: #9c9c9c;
+  --genesis-background: #edf0f3;
+  --genesis-surface: #ffffff;
+  --genesis-text-primary: #243142;
+  --genesis-text-secondary: #5d6977;
+  --genesis-text-muted: #8c959f;
+  --genesis-border: #e9ecef;
+  --genesis-border-input: #d0d7de;
+  --genesis-success: #4caf50;
+  --genesis-warning: #f59e0b;
+  --genesis-error: #f44336;
+  --genesis-focus-ring: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  --genesis-radius-xs: 4px;
+  --genesis-radius-sm: 6px;
+  --genesis-radius-md: 8px;
+  --genesis-radius-toolbar: 5px;
+  --genesis-space-1: 4px;
+  --genesis-space-2: 8px;
+  --genesis-space-3: 12px;
+  --genesis-space-4: 16px;
+  --genesis-space-5: 20px;
+  --genesis-space-6: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--genesis-background);
+  color: var(--genesis-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
